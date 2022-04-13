@@ -1,0 +1,26 @@
+[
+  {
+    "is_gift": false,
+    "user_name": "Example 1"
+  },
+  {
+    "is_gift": false,
+    "user_name": "Example 2"
+  },
+  {
+    "is_gift": false,
+    "user_name": "Example 3"
+  },
+  {
+    "is_gift": false,
+    "user_name": "Example 4"
+  },
+  {
+    "is_gift": true,
+    "user_name": "Example 5"
+  },
+  {
+    "is_gift": true,
+    "user_name": "Example 6"
+  }
+]
