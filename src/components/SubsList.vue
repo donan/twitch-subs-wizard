@@ -1,30 +1,95 @@
 <template>
-    <ul v-if="listUsers&&usersAmount>0">
-        <li v-for="user in listUsers" :key="user.user_name" :data-content="user.user_name">
-            <span v-if="listIcons" class="icons">
-                <span v-if="user.is_gift"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA29JREFUeNqUk81vG0UYxp9Zjz83duwYO6lNaAoVFfTCR0URFwQGIS49FHHqKRf+Ag60wAGJ5sK5vYCQ+BDigISEEJaoCEIcQECRinoARRWOY+w4rrE39q7nY3eHmV07zZWRXs3uzLu/93nemSXNZhPtdhuWZWHFXn0lbFWuhaH/PerD1x158M9kMoFSCtlsFnmrcjrRr15PhrlGYn285SQ6b29ubsIMazgcYjQaIXBJfe/LzKfiIJlR4+yF1if5TtgtvZBKpYgJ0itf7Hy+soND+4lcLtvtfJ1+i/XoQ5gPa/Ew3g2L47vTb9cvehulF4drZy9l+r1m7kYR9UqOV0vtb+jVRy5Zvy0/3z9ZeGb0IAtmbTYgzx2BjOwwDLG0HuzwxOTC758NPjoceKx4RtVeurLx16B5377zQ+Wg8Ub9i6VTwfnpkLGfPtz/eCpHDxQfVTcXIFooFFCr1WDbtjj37jq5+f6han0le4OKOz51pnh/eW2ZIKES7p7/2u4N/jIbpx/OlzL5Z9/Jk263u+CAfPfB7cteO7FlF9MoreWQo8vY/4Oj1xqh73ZhlylCFYKPCE7k6yjX86g9loYnHYz6HnyhkLKtDvnlPU8Nf07CXqWxxBRQWAFYCPza+hEykAiUj2K2jHMbT0JJYDIGAhErka4GlRRoLp+BVyRIFfWqijeFTvIEB/c5ZCgQhD645Ji52gIBEtk4oiZTgqRNQJnlQOUyoJnMkV+a1ImW0iCmFQn4GiTTXFeNQSQ4SoXQOdzsJc+3SbleVUtyDXReRd89pO4qiD91EheQQiIsCaw+HYN8P1av+fjXc/D4q6vEchwHUjGo+aYJYiZ9LUw1EyzQc8CP9swcpeo+GtWRi0jeVIcbb5gMqhsqJsBMstieL8F1z4Sje6KvsPRj5aFmSw/3QEo319cLJD44BEb+TPdIzsAiVUKDGExxa2HN5GlQwI6BQq0gSkrPKxFzvKG2w+bBI5j5SGlFwQLE4m/vgfx4MZgfnG+q6mo84JG1CKTDWMExkHkPFiBf6/RnXFHPJzRLjykyzdYgo0jPQorIigGFcxDzBFw2jUGu66K3s7eV/Ju8ma/G3pa0su7Ywa3btzDj00jVpDrDnRO7UY/E/B5NnCkOcOcp4CzI9vY2DEz/tKCU4v8MoX+BRqMRPf8nwABJCeybz2TYhAAAAABJRU5ErkJggg=="/></span>
-                <span v-else><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAIAAADZrBkAAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAv1JREFUeNpcU0lMFEEU/b+qppuZAYFuFgcXDBBBjftCVIKiHtwIGk9ED5h4Md706s2zRhNjjInbwRNqvGiCiUaD0RhNjGsiKsIwAzMMSwMD09PdVWV1Dxhjp5PfXfXff7/+e4XbjAtLqqol4wASABD+f+RCRBkCECrEB1Ksoso0qnTE0L9JlJHZqbyUsqS0iHMRVBMgNcAcALHnJKMKgEVAeAGGKFBSe5abtQxBG0vY4SgFqXaZVIQIKCUSIBRcAC+gKbyCoBwZmuo4vvHEmU2p4SmVA6hgHNADqWoRBKFqYNDDwhGAOC6PlpGtu+pKDK2iJmTPeVqYBkiVRueTCq0pZkUDgkpBM6Oz65orSgxdrTe3Ls2kMn6HQle7f4srGDImuOuk0mMjo4nU0FQ8nty+r66wvbu9ccKyhwfGM8l0KjU+5zk0pAg9VQbGMtmDnQ0t7Q0TmWnphoTnbW6p90cHZG1L7aWHHZAHpsnyWMnH3kT3jT7hFjMkgrHo6xepjq4tK9cs/0cvdWo1AbajbVVhYXaGX+t5RcAjoZzfZGl5kZXMd7Xd/vS2HwKWghRBmBfm89ufnTuv/P7mGKZSz/NhHneMGk1jxvlTT14/+07m6ZwAQ6TkLx9/Pn+yR5elsWW65+ggQyRwDeEeqYzp9hh/cPNDIIZSUgskRilE9/V39gyai8s85Rj0RSaBD1VDgis9dWfn3hWBPmy+U0VHQ3uOrufoSpFdEAB9tgLYyfNSI9J6qEF9x3+kz3beOn3k7tf3SfV7oHO1uUTPZenfedHGysORaBiJk05b+9s3tHY0dd95c/ls72i/NzMhnz/6lM3ONLc1UiF6n/YvKgsjyOlpmyFySRwpw5EokcS9eK7nyf0vseoqszICmJ/LFd272hfvs+obFpuxiPCdqcwOeKzpqlm9yKMao+HpbCKXJdUVpiTq1gSmU2fD4vHxYcpEubHUc10CbjJhscHBybxLkVjqvvgKAxmJWwvOxmBulgquWp8c9YeB9vAv648AAwBEqV0qLiBSQgAAAABJRU5ErkJggg=="/></span>
-            </span>
-            <span class="username"> {{user.user_name}} </span>
-        </li>
-    </ul>
-    <p v-else> No subs found</p>
+  <ul v-if="listUsers&&totalEntries>0" :class="listClass">
+      <li v-for="user in currentUsersList" :key="user.user_name" :data-content="user.user_name">
+          <span v-if="listIcons" class="icons">
+              <span v-if="user.is_gift"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA29JREFUeNqUk81vG0UYxp9Zjz83duwYO6lNaAoVFfTCR0URFwQGIS49FHHqKRf+Ag60wAGJ5sK5vYCQ+BDigISEEJaoCEIcQECRinoARRWOY+w4rrE39q7nY3eHmV07zZWRXs3uzLu/93nemSXNZhPtdhuWZWHFXn0lbFWuhaH/PerD1x158M9kMoFSCtlsFnmrcjrRr15PhrlGYn285SQ6b29ubsIMazgcYjQaIXBJfe/LzKfiIJlR4+yF1if5TtgtvZBKpYgJ0itf7Hy+soND+4lcLtvtfJ1+i/XoQ5gPa/Ew3g2L47vTb9cvehulF4drZy9l+r1m7kYR9UqOV0vtb+jVRy5Zvy0/3z9ZeGb0IAtmbTYgzx2BjOwwDLG0HuzwxOTC758NPjoceKx4RtVeurLx16B5377zQ+Wg8Ub9i6VTwfnpkLGfPtz/eCpHDxQfVTcXIFooFFCr1WDbtjj37jq5+f6han0le4OKOz51pnh/eW2ZIKES7p7/2u4N/jIbpx/OlzL5Z9/Jk263u+CAfPfB7cteO7FlF9MoreWQo8vY/4Oj1xqh73ZhlylCFYKPCE7k6yjX86g9loYnHYz6HnyhkLKtDvnlPU8Nf07CXqWxxBRQWAFYCPza+hEykAiUj2K2jHMbT0JJYDIGAhErka4GlRRoLp+BVyRIFfWqijeFTvIEB/c5ZCgQhD645Ji52gIBEtk4oiZTgqRNQJnlQOUyoJnMkV+a1ImW0iCmFQn4GiTTXFeNQSQ4SoXQOdzsJc+3SbleVUtyDXReRd89pO4qiD91EheQQiIsCaw+HYN8P1av+fjXc/D4q6vEchwHUjGo+aYJYiZ9LUw1EyzQc8CP9swcpeo+GtWRi0jeVIcbb5gMqhsqJsBMstieL8F1z4Sje6KvsPRj5aFmSw/3QEo319cLJD44BEb+TPdIzsAiVUKDGExxa2HN5GlQwI6BQq0gSkrPKxFzvKG2w+bBI5j5SGlFwQLE4m/vgfx4MZgfnG+q6mo84JG1CKTDWMExkHkPFiBf6/RnXFHPJzRLjykyzdYgo0jPQorIigGFcxDzBFw2jUGu66K3s7eV/Ju8ma/G3pa0su7Ywa3btzDj00jVpDrDnRO7UY/E/B5NnCkOcOcp4CzI9vY2DEz/tKCU4v8MoX+BRqMRPf8nwABJCeybz2TYhAAAAABJRU5ErkJggg=="/></span>
+              <span v-else><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAIAAADZrBkAAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAv1JREFUeNpcU0lMFEEU/b+qppuZAYFuFgcXDBBBjftCVIKiHtwIGk9ED5h4Md706s2zRhNjjInbwRNqvGiCiUaD0RhNjGsiKsIwAzMMSwMD09PdVWV1Dxhjp5PfXfXff7/+e4XbjAtLqqol4wASABD+f+RCRBkCECrEB1Ksoso0qnTE0L9JlJHZqbyUsqS0iHMRVBMgNcAcALHnJKMKgEVAeAGGKFBSe5abtQxBG0vY4SgFqXaZVIQIKCUSIBRcAC+gKbyCoBwZmuo4vvHEmU2p4SmVA6hgHNADqWoRBKFqYNDDwhGAOC6PlpGtu+pKDK2iJmTPeVqYBkiVRueTCq0pZkUDgkpBM6Oz65orSgxdrTe3Ls2kMn6HQle7f4srGDImuOuk0mMjo4nU0FQ8nty+r66wvbu9ccKyhwfGM8l0KjU+5zk0pAg9VQbGMtmDnQ0t7Q0TmWnphoTnbW6p90cHZG1L7aWHHZAHpsnyWMnH3kT3jT7hFjMkgrHo6xepjq4tK9cs/0cvdWo1AbajbVVhYXaGX+t5RcAjoZzfZGl5kZXMd7Xd/vS2HwKWghRBmBfm89ufnTuv/P7mGKZSz/NhHneMGk1jxvlTT14/+07m6ZwAQ6TkLx9/Pn+yR5elsWW65+ggQyRwDeEeqYzp9hh/cPNDIIZSUgskRilE9/V39gyai8s85Rj0RSaBD1VDgis9dWfn3hWBPmy+U0VHQ3uOrufoSpFdEAB9tgLYyfNSI9J6qEF9x3+kz3beOn3k7tf3SfV7oHO1uUTPZenfedHGysORaBiJk05b+9s3tHY0dd95c/ls72i/NzMhnz/6lM3ONLc1UiF6n/YvKgsjyOlpmyFySRwpw5EokcS9eK7nyf0vseoqszICmJ/LFd272hfvs+obFpuxiPCdqcwOeKzpqlm9yKMao+HpbCKXJdUVpiTq1gSmU2fD4vHxYcpEubHUc10CbjJhscHBybxLkVjqvvgKAxmJWwvOxmBulgquWp8c9YeB9vAv648AAwBEqV0qLiBSQgAAAABJRU5ErkJggg=="/></span>
+          </span>
+          <span class="username"> {{user.user_name}} </span>
+      </li>
+  </ul>
+  <p v-else> No subs found</p>
 </template>
 <script>
 
 export default {
   props:{
-    listIcons: Boolean,
+    listIcons: { type: Boolean, default: true},
     listUsers: {
       default:[],
       typeof:Array
     },
     listPages: Number,
-    listAmount: Number
+    listAmount: Number,
+    pageTimer: Number
+  },
+  data(){
+    return{
+      currentPage: 0,
+      listClass: ''
+    }
   },
   computed:{
-    usersAmount(){
+    totalEntries(){
       return this.listUsers.length
+    },
+    totalPages() {
+      return Math.ceil(this.totalEntries / this.listAmount)
+    },
+    currentUsersList(){
+      if(this.listUsers){
+        const index = this.currentPage * this.listAmount
+        return this.listUsers.slice(index, index + this.listAmount)
+      }else{
+        return false
+      }
+    }
+  },
+  mounted(){
+    //Refresh cycle to update the subs list
+    this.createTimer()
+  },
+  beforeDestroy: function(){
+    clearInterval(this.paginateCycle)
+  },
+  watch: {
+    // whenever question changes, this function will run
+    pageTimer(newTimer, oldTimer) {
+      if (newTimer!=oldTimer) {
+        clearInterval(this.paginateCycle)
+        this.createTimer()
+      }
+    },
+    listAmount(newAmount, oldAmount) {
+      if (newAmount!=oldAmount) {
+        clearInterval(this.paginateCycle)
+        this.createTimer()
+      }
+    }
+  },
+  methods:{
+    createTimer(){
+      if(this.pageTimer > 0&&this.totalPages>1){
+        this.paginateCycle = setInterval(function () {
+          this.changePage()
+        }.bind(this), (this.pageTimer*1000))
+      }else{
+        this.currentPage = 0
+        clearInterval(this.paginateCycle)
+      }
+    },
+    changePage(){
+      this.listClass = 'fadeOut'
+      setTimeout(function(){
+        this.currentPage++
+        if (this.currentPage >= this.totalPages) {
+          this.currentPage = 0
+        }
+        this.listClass = 'fadeIn'
+      }.bind(this), 600);
+      setTimeout(function(){
+        this.listClass = ''
+      }.bind(this), 1200);
     }
   }
 }
@@ -38,6 +103,7 @@ export default {
   $color-purple:#6341a9;
   $border-white: 1px 0 0  $color-white, -1px 0 0  $color-white, 0 1px 0  $color-white, 0 -1px 0  $color-white, 1px 1px  $color-white, -1px -1px 0  $color-white, 1px -1px 0  $color-white, -1px 1px 0  $color-white;
   $border-black: 1px 0 0  $color-black, -1px 0 0  $color-black, 0 1px 0  $color-black, 0 -1px 0  $color-black, 1px 1px  $color-black, -1px -1px 0  $color-black, 1px -1px 0  $color-black, -1px 1px 0  $color-black;
+
   ul{
     font-family: 'Anek Odia',Arial, Helvetica, sans-serif;
     font-size:16px;
@@ -56,6 +122,8 @@ export default {
       list-style-type: none;
       span.icons{vertical-align: 2px;}
     }
+    &.fadeIn{animation: fadeIn 0.5s linear;opacity:1}
+    &.fadeOut{animation: fadeOut 0.5s linear;opacity:0}
     &.default li{text-shadow:$border-white}
     &.white li{color:$color-white; text-shadow:$border-black}
     &.twitch li,&.purple li{font-size:150%;margin-bottom:5px}
@@ -71,6 +139,7 @@ export default {
     }
     &.mirror li{
       color:#333;
+      font-size:120%;
       -webkit-box-reflect: below -24px  linear-gradient(transparent, rgba(black,.4));
     }
     &.bloody li{
@@ -108,5 +177,13 @@ export default {
   @keyframes gradient {
     0% {background-position: 0% 50%}
     100% {background-position: 100% 50%}
+  }
+  @keyframes fadeIn {
+    0% {opacity:0}
+    100% {opacity:1}
+  }
+  @keyframes fadeOut {
+    0% {opacity:1}
+    100% {opacity:0}
   }
 </style>

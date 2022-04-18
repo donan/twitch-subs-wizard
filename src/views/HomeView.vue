@@ -24,28 +24,32 @@
             <div class="row">
               <ul>
                 <li>
+                  <h3>1.6</h3>
+                  <p>Pagination slideshow and bug fixes.</p>
+                </li>
+                <li>
                   <h3>1.5</h3>
-                  <p>New security method for url generation.<br/><strong>You must generate a verification URL, use it and then get a new list url</strong></p>
+                  <p>New security method for url generation.<br/><strong>You must generate a verification URL, open it and then get a new list url</strong></p>
                 </li>
                 <li>
                   <h3>1.4</h3>
-                  <p>List automatic refresh, new styles and css improvements</p>
+                  <p>List automatic refresh, new styles and css improvements.</p>
                 </li>
                 <li>
                   <h3>1.3</h3>
-                  <p>Code improvements and mobile tweaks</p>
+                  <p>Code improvements and mobile tweaks.</p>
                 </li>
                 <li>
                   <h3>1.2</h3>
-                  <p>New layout</p>
+                  <p>New layout.</p>
                 </li>
                 <li>
                   <h3>1.1</h3>
-                  <p>New generated URL method</p>
+                  <p>New generated URL method.</p>
                 </li>
                 <li>
                   <h3>1.0</h3>
-                  <p>First release</p>
+                  <p>First release.</p>
                 </li>
               </ul>
             </div>

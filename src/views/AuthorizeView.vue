@@ -128,6 +128,7 @@ export default {
                 localStorage.twSubsPagAmount = 100
                 localStorage.twSubsStyle = 'default'
                 localStorage.twSubsIcons = true
+                localStorage.twSubsTime = 0
             }
         }
     }

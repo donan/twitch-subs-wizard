@@ -69,8 +69,9 @@ export default {
             const urlSty = localStorage.twSubsStyle
             const urlIco = JSON.parse(localStorage.twSubsIcons)
             const urlLog = localStorage.twSubsLogin
-            const urlAut = localStorage.twSubsAuth       
-            const shareURL = `auth=${urlAut}&login=${urlLog}&icon=${urlIco}&style=${urlSty}&pagination=${urlPag}`
+            const urlAut = localStorage.twSubsAuth    
+            const urlTimer = localStorage.twSubsTime
+            const shareURL = `auth=${urlAut}&login=${urlLog}&icon=${urlIco}&style=${urlSty}&pagination=${urlPag}&pagtimer=${urlTimer}`
             return `${this.listURL('List')}?${this.encrypt(shareURL,this.verification)}`
         },
         isDebug(){
