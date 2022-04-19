@@ -37,6 +37,7 @@ export default {
       return Math.ceil(this.totalEntries / this.listAmount)
     },
     currentUsersList(){
+      //Filtered list by page
       if(this.listUsers){
         const index = this.currentPage * this.listAmount
         return this.listUsers.slice(index, index + this.listAmount)
@@ -53,7 +54,7 @@ export default {
     clearInterval(this.paginateCycle)
   },
   watch: {
-    // whenever question changes, this function will run
+    //Watch info changes to refresh slideshow on config page
     pageTimer(newTimer, oldTimer) {
       if (newTimer!=oldTimer) {
         clearInterval(this.paginateCycle)
@@ -69,6 +70,7 @@ export default {
   },
   methods:{
     createTimer(){
+      //Slideshow cycle
       if(this.pageTimer > 0&&this.totalPages>1){
         this.paginateCycle = setInterval(function () {
           this.changePage()
@@ -79,6 +81,7 @@ export default {
       }
     },
     changePage(){
+      //Change page animation and checks
       this.listClass = 'fadeOut'
       setTimeout(function(){
         this.currentPage++
