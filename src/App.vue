@@ -18,7 +18,7 @@
     <notifications position="bottom right"/>
     <footer class="footer" v-if="!useMenu">
       <div class="container">
-        <div class="text-center">© 2022 sonydcf - Twitch subs wizard v1.5</div>
+        <div class="text-center">© 2022 sonydcf - Twitch subs wizard v1.6</div>
       </div>
     </footer>
   </div>

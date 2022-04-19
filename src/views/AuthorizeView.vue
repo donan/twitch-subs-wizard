@@ -1,25 +1,26 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">App authorization</h1>
+            <h1 class="card-title">APP authorization</h1>
         </div>
         <div class="card-body">
             <template v-if="!checking">
                 <template v-if="!auth">
-                    <p>Press the Authorize button to authorize the twitch app<br/>(it's 100% safe, we don't store your data)</p>
+                    <p>Press the Authorize button to authorize the twitch API access<br/>(it's 100% safe because we don't store your data)</p>
                     <p><a :href="authURL" class="btn btn-danger">Authorize</a></p><hr>
-                    <p>If you already have a valid authorization token, please use it here:<br/><input v-model="manualAuth" placeholder="Insert authorization code"/> <a class="btn btn-danger" @click.prevent="validateAuth(manualAuth)">Manual Authorization</a></p>
-                    <template v-if="invalid"><p>Código de autorización inválido se requiere un nuevo código</p></template>
+                    <p>If you already have a valid authorization token, use it here:<br/><input v-model="manualAuth" placeholder="Insert authorization code"/> <a class="btn btn-danger" @click.prevent="validateAuth(manualAuth)">Manual Authorization</a></p>
+                    <template v-if="invalid"><p>Invalid authorization code</p></template>
                 </template>
                 <template v-else>
                     <template>
-                        <p>You successfuly authorized the app</p>
+                        <p>You successfuly authorized the APP</p>
                         <p>Your Auth token is {{auth}} <a @click.prevent="copyToClipboard(auth)" class="btn btn-success">Copy</a></p>
                         <p v-if="timeLeft">This auth token will work during the next {{timeLeft | dateFormat}}</p>
                         <p v-if="isAboutToExpire">Your Auth Token is about to expire, please renew it <a @click.prevent="renewAuth" target="_blank" class="btn btn-warning">Renew authorization</a></p>
+                        <p v-if="isAboutToExpire"><em>Remember to create a new authorization and list URL after renewing this Auth code</em></p>
                     </template>
-                    <p><em>If you have any login error while displaying the subs list, press this button:</em></p>
-                    <p><a @click="warningClearData" class="btn btn-danger">Clear stored Authorization data</a></p>
+                    <p><em>If you have any auth error while displaying the subs list or entering this page, press this button:</em></p>
+                    <p><a @click="warningClearData" class="btn btn-danger">Clear browser Authorization data</a></p>
                 </template>
             </template>
             <template v-else>
