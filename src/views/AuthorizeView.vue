@@ -9,7 +9,10 @@
                     <p>Press the Authorize button to authorize the twitch API access<br/>(it's 100% safe because we don't store your data)</p>
                     <p><a :href="authURL" class="btn btn-danger">Authorize</a></p><hr>
                     <p>If you already have a valid authorization token, use it here:<br/><input v-model="manualAuth" placeholder="Insert authorization code"/> <a class="btn btn-danger" @click.prevent="validateAuth(manualAuth)">Manual Authorization</a></p>
-                    <template v-if="invalid"><p>Invalid authorization code</p></template>
+                    <template v-if="invalid">
+                        <p>Invalid authorization code</p>
+                        <p><a @click="warningClearData" class="btn btn-danger">Clear browser Authorization data</a></p>
+                    </template>
                 </template>
                 <template v-else>
                     <template>
@@ -45,12 +48,13 @@ export default {
     },
     async created(){
       //If user have a stored auth we try to validate it
-      if(this.currentAuth) {
-        this.validateAuth(this.currentAuth)
-      }else{
         const uri = window.location.hash.substr(1)
         const params = new URLSearchParams(uri)
         const token = params.get("access_token")
+
+      if(this.currentAuth&&!token) {
+        this.validateAuth(this.currentAuth)
+      }else{
         if(token){
             this.validateAuth(token)
         }else{

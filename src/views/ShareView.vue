@@ -41,7 +41,7 @@
                 </ol>
             </div>
             <div class="row" v-else>
-                <p>Please, do the authentication step first</p>
+                <p class="text-danger">Please, do the authentication step first</p>
             </div>
         </div>
     </div>
